@@ -23,7 +23,7 @@ Neo4j harnesses the power of connections between data. It provides an _efficient
 A graph database can store any kind of data using a few simple concepts:
 
 1. Nodes - graph data records
-2. Relationships - connect nodes
+2. Relationships - connect nodes (_always have a direction and type_)
 3. Properties - named data values
 
 Neo4j can be queried for **_nodes_** (_objects in the graph_) and **relationships** (connections between objects_) with **Cypher** (_Neo4j's query language_).
@@ -58,7 +58,49 @@ Follow these steps to get up and running with your first Neo4j database:
 4. You should then see that you've successfully connected to Neo4j
 ![connect neo4j](https://cloud.githubusercontent.com/assets/12450298/16586383/8860fe26-42bd-11e6-9cb0-1aaefbc15971.png)
 
-5. There are also a couple of great tutorial resources/slideshows that you can look at if you click on the dashboard on the left or the 'Start learning' button in the middle of the page. They will give you a bit of background information on **Neo4j** and it's query language **Cypher**
+5. There are also a couple of great tutorial resources/slideshows that you can look at if you click on the dashboard on the left or the 'Start learning' button in the middle of the page. They will give you a bit of background information on **Neo4j** and **Cypher**
 ![dashboard](https://cloud.githubusercontent.com/assets/12450298/16586444/df7407da-42bd-11e6-86d9-e122f03d4e3e.png)
 
-### Now that we've set that up, we'll now be able to create our own graph!
+## **Cypher** - Query language for Neo4j
+Cypher is a very declarative query language meaning that you describe what you want to find, not how you want to find it. Let's look at a few examples of how we might implement it:
+
+CREATE - create a node:
+
+`$ CREATE (d:Person { name: "David", from: "Canada" })`
+
+Now let's break the pieces down:
+
+**CREATE** - claus to create data  
+**()** - parentheses to indicate a node  
+**d:Person** - a variable _'d'_ and label _'Person'_
+**{}** - brackets to add properties to a node
+
+Essentially we've just created a node **_person_** with a label of **_Person_** with the properties **_name: "David"_** and **_from: "Canada"_**.
+
+MATCH - find a node:
+
+`$ MATCH (d:Person) WHERE person.name = "David" RETURN d;`
+
+**MATCH** - clause to specify a pattern of nodes and relationships  
+**(d:Person)** a single node pattern with label 'Person' which will assign matches to the variable 'd'  
+**WHERE** clause to constrain the results  
+**d.name = "David"** - compares name property to the value "David"  
+**RETURN** - clause used to request particular results
+
+CREATE clauses can create multiple nodes and relationships at once:
+
+```
+$ MATCH (d:Person) WHERE d.name = "David"    
+CREATE (j:Person { name: "John", from: "Sweden", learn: "surfing" }),  
+(i:Person { name: "Ian", from: "England", title: "author" }),  
+(r:Person { name: "Rick", from: "Belgium", pet: "Orval" }),  
+(a:Person { name: "Allison", from: "California", hobby: "surfing" }),  
+(d)-[:KNOWS {since: 2001}]->(j),(d)-[:KNOWS {rating: 5}]->(i),  
+(j)-[:KNOWS]->(i),(j)-[:KNOWS]->(r),  
+(i)-[:KNOWS]->(j),(i)-[:KNOWS]->(a),  
+(r)-[:KNOWS]->(a)
+```
+
+Here we're creating 4 more nodes _(people)_ and then creating 6 relationships between them. Note that each relationship has a direction notated by `->`. Just like with nodes, we can add properties to the relationships using curly braces:
+
+`(d)-[:KNOWS {since: 2001}]->(j)`
