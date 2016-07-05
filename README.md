@@ -75,7 +75,7 @@ Now let's break the pieces down:
 **d:Person** - a variable _'d'_ and label _'Person'_
 **{}** - brackets to add properties to a node
 
-Essentially we've just created a node **_person_** with a label of **_Person_** with the properties **_name: "David"_** and **_from: "Canada"_**.
+Essentially we've just created a node **_person_** with a label of **_Person_** with the properties **_name: "David"_** and **_from: "Canada"_**. If you run this command you'll have successfully created your first graph!
 
 MATCH - find a node:
 
@@ -103,4 +103,19 @@ CREATE (j:Person { name: "John", from: "Sweden", learn: "surfing" }),
 
 Here we're creating 4 more nodes _(people)_ and then creating 6 relationships between them. Note that each relationship has a direction notated by `->`. Just like with nodes, we can add properties to the relationships using curly braces:
 
+For example if we wanted to say that David has known John since 2001 we could represent that as shown below (note that this doesn't mean that John knows David):  
 `(d)-[:KNOWS {since: 2001}]->(j)`
+
+Now that we have some more data with some relationships, we can begin to query it in interesting ways!
+
+Let's take this query as an example:
+```
+MATCH (d:Person)-[:KNOWS]-(friends)  
+WHERE d.name = "David" RETURN d, friends
+```
+**MATCH** -  clause to describe the pattern from known Nodes to found Nodes  
+**(d)** - starts the pattern with a Person (qualified by WHERE)  
+**-[:KNOWS]-** matches "KNOWS" relationships (in either direction)  
+**(friends)** - will be bound to David's friends
+
+![david friends](https://cloud.githubusercontent.com/assets/12450298/16591292/22e473dc-42d3-11e6-96da-2684269ebada.png)
