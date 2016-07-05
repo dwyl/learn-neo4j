@@ -119,3 +119,5 @@ WHERE d.name = "David" RETURN d, friends
 **(friends)** - will be bound to David's friends
 
 ![david friends](https://cloud.githubusercontent.com/assets/12450298/16591292/22e473dc-42d3-11e6-96da-2684269ebada.png)
+
+### Recommendation - Using Patterns
