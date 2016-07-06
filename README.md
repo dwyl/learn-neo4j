@@ -64,6 +64,10 @@ Follow these steps to get up and running with your first Neo4j database:
 ## **Cypher** - Query language for Neo4j
 Cypher is a very declarative query language meaning that you describe what you want to find, not how you want to find it. Let's look at a few examples of how we might implement it:
 
+`CREATE` or `DELETE` - create or delete nodes and relationships  
+`SET` or `REMOVE` - set values to properties or labels on nodes  
+`MERGE` - Match existing or create new nodes and patterns. This is especially useful together with uniqueness constraints.
+
 CREATE - create a node:
 
 `$ CREATE (d:Person { name: "David", from: "Canada" })`
@@ -121,3 +125,26 @@ WHERE d.name = "David" RETURN d, friends
 ![david friends](https://cloud.githubusercontent.com/assets/12450298/16591292/22e473dc-42d3-11e6-96da-2684269ebada.png)
 
 ### Recommendation - Using Patterns
+
+With the graph we previously created above we can start to make recommendations based on the data. For example, John is learning to surf and so he might want to find a new friend that already does. We can query our graph as follows:
+
+```
+MATCH (j:Person)-[:KNOWS]-()-[:KNOWS]-(surfer)  
+WHERE j.name = "John" AND surfer.hobby = "surfing"  
+RETURN DISTINCT surfer  
+```
+Here we're saying, find me someone who knows one of John's friends who has surfing as a hobby.  
+**()** - empty parentheses means ignore those nodes  
+**DISTINCT** - returns a unique path because more than one will match the pattern  
+**surfer** - will contain Allison, a friend of a friend who surfs
+
+If we wanted to take a closer look into what our query was doing, we can prepend it with either `EXPLAIN` or `PROFILE` for example:
+
+```
+PROFILE MATCH (js:Person)-[:KNOWS]-()-[:KNOWS]-(surfer)  
+WHERE js.name = "Johan" AND surfer.hobby = "surfing"  
+RETURN DISTINCT surfer
+```
+
+Which will show the following in the console:
+![profile query](https://cloud.githubusercontent.com/assets/12450298/16620690/520fe796-438b-11e6-8304-ba7fba0ca455.png)
