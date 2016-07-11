@@ -28,7 +28,7 @@ A graph database can store any kind of data using a few simple concepts:
 
 Neo4j can be queried for **_nodes_** (_objects in the graph_) and **relationships** (connections between objects_) with **Cypher** (_Neo4j's query language_).
 
-![nodes and edges](https://cloud.githubusercontent.com/assets/12450298/16585645/defdd050-42b9-11e6-9315-827f355b3d1a.png)
+![nodes and edges](https://cloud.githubusercontent.com/assets/12450298/16585645/defdd050-42b9-11e6-9315-827f355b3d1a.png)  
 _Both nodes and relationships can have name-value properties attached to them that can be used to give a more declarative description of what they are._
 
 
