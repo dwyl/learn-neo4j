@@ -81,7 +81,7 @@ Now let's break the pieces down:
 **d:Person** - a variable _'d'_ and label _'Person'_
 **{}** - brackets to add properties to a node
 
-Essentially we've just created a node **_person_** with a label of **_Person_** with the properties **_name: "David"_** and **_from: "Canada"_**. If you run this command you'll have successfully created your first graph!
+Essentially we've just created a node **_d_** with a label of **_Person_** with the properties **_name: "David"_** and **_from: "Canada"_**. If you run this command you'll have successfully created your first graph!
 
 MATCH - find a node:
 
