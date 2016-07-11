@@ -68,6 +68,8 @@ Cypher is a very declarative query language meaning that you describe what you w
 `SET` or `REMOVE` - set values to properties or labels on nodes  
 `MERGE` - Match existing or create new nodes and patterns. This is especially useful together with uniqueness constraints.
 
+These are just a few but there are many _many_ more that you can check out **[here](http://neo4j.com/docs/cypher-refcard/3.0/)**
+
 CREATE - create a node:
 
 `$ CREATE (d:Person { name: "David", from: "Canada" })`
